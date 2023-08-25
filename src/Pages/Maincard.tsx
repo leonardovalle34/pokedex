@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function MainCard() {
-  const [pokemons, setPokemons] = useState<any>([]);
+  const [pokemons, setPokemons] = useState<Array>([]);
 
   const img =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Sapo_2.jpg/220px-Sapo_2.jpg";
 
   const load = async () => {
-    await axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=10")
-      .then((response) => {
-        setPokemons([response.data]);
-      });
+    const endpoints = [];
+    for (let x: number = 1; x <= 10; x++) {
+      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${x}`);
+    }
+    const response = axios
+      .all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then((res) => setPokemons(res));
   };
 
   console.log(pokemons);
@@ -26,12 +28,11 @@ export default function MainCard() {
   return (
     <>
       <MainCardStyled>
-        {pokemons[0]?.results?.map((el: any, i: number) => {
+        {pokemons?.map((el: any, i: number) => {
           return (
-            <PokeCard>
-              <PokeImg src={img} />
-              <p>{el.name}</p>
-              <p>{el.url}</p>
+            <PokeCard key={i}>
+              <PokeImg src={el.data.sprites.front_default} />
+              <p>{el.data.name}</p>
             </PokeCard>
           );
         })}
