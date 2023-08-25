@@ -6,15 +6,12 @@ import axios from "axios";
 export default function MainCard() {
   const [pokemons, setPokemons] = useState<Array>([]);
 
-  const img =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Sapo_2.jpg/220px-Sapo_2.jpg";
-
   const load = async () => {
     const endpoints = [];
-    for (let x: number = 1; x <= 10; x++) {
+    for (let x: number = 1; x <= 12; x++) {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${x}`);
     }
-    const response = axios
+    axios
       .all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then((res) => setPokemons(res));
   };
