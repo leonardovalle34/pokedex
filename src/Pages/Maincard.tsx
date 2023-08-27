@@ -8,8 +8,6 @@ export default function MainCard() {
   const [firstEndPoint, setFirstEndPoint] = useState<any>([]);
   const [nextEndPoint, setNextEndPoint] = useState<any>([]);
   const [previousEndPoint, setPreviousEndPoint] = useState<any>("");
-  const [totalPages, setTotalPages] = useState<any>();
-  const [lastPoke, setLastPoke] = useState<any>();
   const [pages, setPages] = useState<any>();
   const [actualPage, setActualPage] = useState<any>();
 
@@ -23,10 +21,6 @@ export default function MainCard() {
     axios
       .all(newEndPoints.map((endPoint: any) => axios.get(endPoint)))
       .then((res: any) => setPokemons(res));
-
-    /*axios.get(`${endPoint?.data?.next}`).then((res) => {
-      setEndPoint(res);
-    });*/
   };
 
   const getEndPoints = async (firstparam) => {
