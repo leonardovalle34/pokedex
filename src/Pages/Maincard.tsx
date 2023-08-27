@@ -13,18 +13,15 @@ export default function MainCard() {
   const [pages, setPages] = useState<any>();
   const [actualPage, setActualPage] = useState<any>();
 
-  const pagination = () => {
-    console.log(lastPoke);
-    if (totalPages > 0) {
-      setPages(totalPages / 20);
-      setActualPage(lastPoke / 20);
+  const pagination = (actualpoke: string, pages: number) => {
+    if (actualPage <= 50) {
+      const urlNumber = Number(actualpoke.match(/\d+/g).pop());
+      setActualPage(urlNumber / 20);
+      setPages(pages / 20);
     }
   };
 
   const getData = async (newEndPoints: Array) => {
-    setLastPoke(
-      Number(newEndPoints?.data?.result[res?.data?.result.length - 1])
-    );
     axios
       .all(newEndPoints.map((endPoint: any) => axios.get(endPoint)))
       .then((res: any) => setPokemons(res));
@@ -32,7 +29,6 @@ export default function MainCard() {
     /*axios.get(`${endPoint?.data?.next}`).then((res) => {
       setEndPoint(res);
     });*/
-    pagination();
   };
 
   const getEndPoints = async (firstparam) => {
@@ -55,8 +51,10 @@ export default function MainCard() {
         setFirstEndPoint(res?.data?.results);
         getEndPoints(res?.data?.results);
         setNextEndPoint(res?.data?.next);
-        setTotalPages(res?.data?.count);
-        setLastPoke(res?.data?.results[res?.data?.results?.length - 1].url);
+        pagination(
+          res?.data?.results[res?.data?.results?.length - 1].url,
+          res?.data?.count
+        );
       });
   };
 
@@ -66,8 +64,10 @@ export default function MainCard() {
       getEndPoints(res?.data?.results);
       setNextEndPoint(res.data.next);
       setPreviousEndPoint(res.data.previous);
-      setTotalPages(res?.data?.count);
-      setLastPoke(res?.data?.results[res?.data?.results?.length - 1].url);
+      pagination(
+        res?.data?.results[res?.data?.results?.length - 1].url,
+        res?.data?.count
+      );
     });
   };
 
@@ -77,8 +77,10 @@ export default function MainCard() {
       getEndPoints(res?.data?.results);
       setNextEndPoint(res.data.next);
       setPreviousEndPoint(res.data.previous);
-      setTotalPages(res?.data?.count);
-      setLastPoke(res?.data?.results[res?.data?.results?.length - 1].url);
+      pagination(
+        res?.data?.results[res?.data?.results?.length - 1].url,
+        res?.data?.count
+      );
     });
   };
 
@@ -88,14 +90,24 @@ export default function MainCard() {
 
   return (
     <>
-      <button onClick={() => pageDown()}>Previous</button>
-      <button onClick={() => pageUp()}>Next</button>
+      <button
+        onClick={() => pageDown()}
+        disabled={actualPage <= 1 ? true : false}
+      >
+        Previous
+      </button>
+      <button
+        onClick={() => pageUp()}
+        disabled={actualPage >= 50 ? true : false}
+      >
+        Next
+      </button>
       <p>
         Pagina{" "}
         <strong>
           {actualPage}
           <strong> de </strong>
-          {pages}
+          50
         </strong>
       </p>
       <MainCardStyled>
