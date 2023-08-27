@@ -14,11 +14,9 @@ export default function MainCard() {
   const [actualPage, setActualPage] = useState<any>();
 
   const pagination = (actualpoke: string, pages: number) => {
-    if (actualPage <= 50) {
-      const urlNumber = Number(actualpoke.match(/\d+/g).pop());
-      setActualPage(urlNumber / 20);
-      setPages(pages / 20);
-    }
+    const urlNumber = Number(actualpoke.match(/\d+/g).pop());
+    setActualPage(urlNumber / 20);
+    setPages(pages / 20);
   };
 
   const getData = async (newEndPoints: Array) => {
