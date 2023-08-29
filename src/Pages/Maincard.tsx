@@ -129,10 +129,12 @@ export default function MainCard() {
       <MainCardStyled numColumns={pokemons.length == 1 ? 1 : 4}>
         {pokemons?.map((el: any, i: number) => {
           return (
-            <PokeCard key={i}>
-              <PokeImg src={el.data.sprites.front_default} />
-              <p>{el.data.name}</p>
-            </PokeCard>
+            <button>
+              <PokeCard key={i}>
+                <PokeImg src={el.data.sprites.front_default} />
+                <p>{el.data.name}</p>
+              </PokeCard>
+            </button>
           );
         })}
       </MainCardStyled>
