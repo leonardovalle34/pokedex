@@ -8,27 +8,20 @@ export default function MainCard() {
   const [firstEndPoint, setFirstEndPoint] = useState<any>([]);
   const [nextEndPoint, setNextEndPoint] = useState<any>([]);
   const [previousEndPoint, setPreviousEndPoint] = useState<any>("");
-  const [totalPages, setTotalPages] = useState<any>();
-  const [lastPoke, setLastPoke] = useState<any>();
   const [pages, setPages] = useState<any>();
   const [actualPage, setActualPage] = useState<any>();
+  const [searchPokemon, setSearchPokemon] = useState<any>();
 
   const pagination = (actualpoke: string, pages: number) => {
-    if (actualPage <= 50) {
-      const urlNumber = Number(actualpoke.match(/\d+/g).pop());
-      setActualPage(urlNumber / 20);
-      setPages(pages / 20);
-    }
+    const urlNumber = Number(actualpoke.match(/\d+/g).pop());
+    setActualPage(urlNumber / 20);
+    setPages(pages / 20);
   };
 
   const getData = async (newEndPoints: Array) => {
     axios
       .all(newEndPoints.map((endPoint: any) => axios.get(endPoint)))
       .then((res: any) => setPokemons(res));
-
-    /*axios.get(`${endPoint?.data?.next}`).then((res) => {
-      setEndPoint(res);
-    });*/
   };
 
   const getEndPoints = async (firstparam) => {
@@ -84,33 +77,56 @@ export default function MainCard() {
     });
   };
 
+  const handleSearch = () => {
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${searchPokemon}`)
+      .then((res: any) => {
+        setPokemons([res]);
+      });
+  };
+
   useEffect(() => {
     load();
   }, []);
 
   return (
     <>
-      <button
-        onClick={() => pageDown()}
-        disabled={actualPage <= 1 ? true : false}
-      >
-        Previous
-      </button>
-      <button
-        onClick={() => pageUp()}
-        disabled={actualPage >= 50 ? true : false}
-      >
-        Next
-      </button>
-      <p>
-        Pagina{" "}
-        <strong>
-          {actualPage}
-          <strong> de </strong>
-          50
-        </strong>
-      </p>
-      <MainCardStyled>
+      <div>
+        <label>Search</label>
+        <input
+          type="text"
+          onChange={(e) => setSearchPokemon(e.target.value)}
+        ></input>
+        <button onClick={() => handleSearch()}>🔍</button>
+      </div>
+      {pokemons.length > 2 ? (
+        <>
+          <button
+            onClick={() => pageDown()}
+            disabled={actualPage <= 1 ? true : false}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => pageUp()}
+            disabled={actualPage >= 50 ? true : false}
+          >
+            Next
+          </button>
+          <p></p>
+          <p>
+            Pagina{" "}
+            <strong>
+              {actualPage}
+              <strong> de </strong>
+              50
+            </strong>
+          </p>
+        </>
+      ) : (
+        <button onClick={() => load()}>X</button>
+      )}
+      <MainCardStyled numColumns={pokemons.length == 1 ? 1 : 4}>
         {pokemons?.map((el: any, i: number) => {
           return (
             <PokeCard key={i}>
