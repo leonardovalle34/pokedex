@@ -99,27 +99,34 @@ export default function MainCard() {
         ></input>
         <button onClick={() => handleSearch()}>🔍</button>
       </div>
-      <button
-        onClick={() => pageDown()}
-        disabled={actualPage <= 1 ? true : false}
-      >
-        Previous
-      </button>
-      <button
-        onClick={() => pageUp()}
-        disabled={actualPage >= 50 ? true : false}
-      >
-        Next
-      </button>
-      <p>
-        Pagina{" "}
-        <strong>
-          {actualPage}
-          <strong> de </strong>
-          50
-        </strong>
-      </p>
-      <MainCardStyled>
+      {pokemons.length > 2 ? (
+        <>
+          <button
+            onClick={() => pageDown()}
+            disabled={actualPage <= 1 ? true : false}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => pageUp()}
+            disabled={actualPage >= 50 ? true : false}
+          >
+            Next
+          </button>
+          <p></p>
+          <p>
+            Pagina{" "}
+            <strong>
+              {actualPage}
+              <strong> de </strong>
+              50
+            </strong>
+          </p>
+        </>
+      ) : (
+        <button onClick={() => load()}>X</button>
+      )}
+      <MainCardStyled numColumns={pokemons.length == 1 ? 1 : 4}>
         {pokemons?.map((el: any, i: number) => {
           return (
             <PokeCard key={i}>
