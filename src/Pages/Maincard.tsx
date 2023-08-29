@@ -10,6 +10,7 @@ export default function MainCard() {
   const [previousEndPoint, setPreviousEndPoint] = useState<any>("");
   const [pages, setPages] = useState<any>();
   const [actualPage, setActualPage] = useState<any>();
+  const [searchPokemon, setSearchPokemon] = useState<any>();
 
   const pagination = (actualpoke: string, pages: number) => {
     const urlNumber = Number(actualpoke.match(/\d+/g).pop());
@@ -76,12 +77,28 @@ export default function MainCard() {
     });
   };
 
+  const handleSearch = () => {
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${searchPokemon}`)
+      .then((res: any) => {
+        setPokemons([res]);
+      });
+  };
+
   useEffect(() => {
     load();
   }, []);
 
   return (
     <>
+      <div>
+        <label>Search</label>
+        <input
+          type="text"
+          onChange={(e) => setSearchPokemon(e.target.value)}
+        ></input>
+        <button onClick={() => handleSearch()}>🔍</button>
+      </div>
       <button
         onClick={() => pageDown()}
         disabled={actualPage <= 1 ? true : false}
