@@ -95,6 +95,10 @@ export default function MainCard() {
       });
   };
 
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     load();
   }, []);
@@ -142,7 +146,7 @@ export default function MainCard() {
           )}
           <MainCardStyled numColumns={pokemons.length == 1 ? 1 : 4}>
             {isOpen === true ? (
-              <Modal />
+              <Modal onClose={closeModal} />
             ) : (
               <>
                 {pokemons?.map((el: any, i: number) => {

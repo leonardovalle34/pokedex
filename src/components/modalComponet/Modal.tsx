@@ -1,11 +1,10 @@
-import { ModalContent, ModalOverlay } from "./modalStyled";
+import { CloseButton, ModalContent, ModalOverlay } from "./modalStyled";
 
-export function Modal(children: any, onClose: any) {
+export function Modal(props: any) {
   return (
-    <ModalOverlay onClick={onClose}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
-        {children}
-      </ModalContent>
+    <ModalOverlay>
+      <CloseButton onClick={props.onClose}>X</CloseButton>
+      <ModalContent></ModalContent>
     </ModalOverlay>
   );
 }

@@ -13,8 +13,27 @@ export const ModalOverlay = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  background-color: white;
+  background-color: grey;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  width: 50%;
+  height: 80%;
+  position: relative;
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  font-weight: bold;
+  top: 30px;
+  right: 30px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: red;
+
+  &:hover {
+    color: #ff0000;
+  }
 `;
