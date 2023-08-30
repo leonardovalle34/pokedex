@@ -1,6 +1,8 @@
 import { MainCardStyled } from "../components/mainCardStyled";
 import { PokeCard, PokeImg } from "../components/pokeCard";
 import { useEffect, useState } from "react";
+import Loading from "../components/loadingComponent/Loading";
+import { Modal } from "../components/modalComponet/Modal";
 import axios from "axios";
 
 export default function MainCard() {
@@ -11,17 +13,20 @@ export default function MainCard() {
   const [pages, setPages] = useState<any>();
   const [actualPage, setActualPage] = useState<any>();
   const [searchPokemon, setSearchPokemon] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const pagination = (actualpoke: string, pages: number) => {
     const urlNumber = Number(actualpoke.match(/\d+/g).pop());
-    setActualPage(urlNumber / 20);
-    setPages(pages / 20);
+    setActualPage(urlNumber / 8);
+    setPages(pages / 8);
   };
 
   const getData = async (newEndPoints: Array) => {
     axios
       .all(newEndPoints.map((endPoint: any) => axios.get(endPoint)))
       .then((res: any) => setPokemons(res));
+    setLoading(false);
   };
 
   const getEndPoints = async (firstparam) => {
@@ -37,8 +42,9 @@ export default function MainCard() {
   };
 
   const load = async () => {
+    setLoading(true);
     await axios
-      .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=20")
+      .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=8")
       .then((res: any) => {
         //setLastPoke(res.data.results[0].url);
         setFirstEndPoint(res?.data?.results);
@@ -52,6 +58,7 @@ export default function MainCard() {
   };
 
   const pageUp = async () => {
+    setLoading(true);
     await axios.get(`${nextEndPoint}`).then((res: any) => {
       //setLastPoke(res?.data?.result[0].url);
       getEndPoints(res?.data?.results);
@@ -65,6 +72,7 @@ export default function MainCard() {
   };
 
   const pageDown = async () => {
+    setLoading(true);
     await axios.get(`${previousEndPoint}`).then((res: any) => {
       //setLastPoke(res?.data?.result[0].url);
       getEndPoints(res?.data?.results);
@@ -78,10 +86,12 @@ export default function MainCard() {
   };
 
   const handleSearch = () => {
+    setLoading(true);
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${searchPokemon}`)
       .then((res: any) => {
         setPokemons([res]);
+        setLoading(false);
       });
   };
 
@@ -91,53 +101,65 @@ export default function MainCard() {
 
   return (
     <>
-      <div>
-        <label>Search</label>
-        <input
-          type="text"
-          onChange={(e) => setSearchPokemon(e.target.value)}
-        ></input>
-        <button onClick={() => handleSearch()}>🔍</button>
-      </div>
-      {pokemons.length > 2 ? (
-        <>
-          <button
-            onClick={() => pageDown()}
-            disabled={actualPage <= 1 ? true : false}
-          >
-            Previous
-          </button>
-          <button
-            onClick={() => pageUp()}
-            disabled={actualPage >= 50 ? true : false}
-          >
-            Next
-          </button>
-          <p></p>
-          <p>
-            Pagina{" "}
-            <strong>
-              {actualPage}
-              <strong> de </strong>
-              50
-            </strong>
-          </p>
-        </>
+      {loading === true ? (
+        <Loading />
       ) : (
-        <button onClick={() => load()}>X</button>
+        <>
+          <div>
+            <label>Search</label>
+            <input
+              type="text"
+              onChange={(e) => setSearchPokemon(e.target.value)}
+            ></input>
+            <button onClick={() => handleSearch()}>🔍</button>
+          </div>
+          {pokemons.length > 2 ? (
+            <>
+              <button
+                onClick={() => pageDown()}
+                disabled={actualPage <= 1 ? true : false}
+              >
+                Previous
+              </button>
+              <button
+                onClick={() => pageUp()}
+                disabled={actualPage >= 100 ? true : false}
+              >
+                Next
+              </button>
+              <p></p>
+              <p>
+                Pagina{" "}
+                <strong>
+                  {actualPage}
+                  <strong> de </strong>
+                  100
+                </strong>
+              </p>
+            </>
+          ) : (
+            <button onClick={() => load()}>X</button>
+          )}
+          <MainCardStyled numColumns={pokemons.length == 1 ? 1 : 4}>
+            {isOpen === true ? (
+              <Modal />
+            ) : (
+              <>
+                {pokemons?.map((el: any, i: number) => {
+                  return (
+                    <button onClick={() => setIsOpen(true)}>
+                      <PokeCard key={i}>
+                        <PokeImg src={el.data.sprites.front_default} />
+                        <p>{el.data.name}</p>
+                      </PokeCard>
+                    </button>
+                  );
+                })}
+              </>
+            )}
+          </MainCardStyled>
+        </>
       )}
-      <MainCardStyled numColumns={pokemons.length == 1 ? 1 : 4}>
-        {pokemons?.map((el: any, i: number) => {
-          return (
-            <button>
-              <PokeCard key={i}>
-                <PokeImg src={el.data.sprites.front_default} />
-                <p>{el.data.name}</p>
-              </PokeCard>
-            </button>
-          );
-        })}
-      </MainCardStyled>
     </>
   );
 }
