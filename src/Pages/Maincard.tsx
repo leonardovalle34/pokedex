@@ -14,8 +14,8 @@ export default function MainCard() {
 
   const pagination = (actualpoke: string, pages: number) => {
     const urlNumber = Number(actualpoke.match(/\d+/g).pop());
-    setActualPage(urlNumber / 20);
-    setPages(pages / 20);
+    setActualPage(urlNumber / 8);
+    setPages(pages / 8);
   };
 
   const getData = async (newEndPoints: Array) => {
@@ -38,7 +38,7 @@ export default function MainCard() {
 
   const load = async () => {
     await axios
-      .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=20")
+      .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=8")
       .then((res: any) => {
         //setLastPoke(res.data.results[0].url);
         setFirstEndPoint(res?.data?.results);
@@ -109,7 +109,7 @@ export default function MainCard() {
           </button>
           <button
             onClick={() => pageUp()}
-            disabled={actualPage >= 50 ? true : false}
+            disabled={actualPage >= 100 ? true : false}
           >
             Next
           </button>
@@ -119,7 +119,7 @@ export default function MainCard() {
             <strong>
               {actualPage}
               <strong> de </strong>
-              50
+              100
             </strong>
           </p>
         </>
