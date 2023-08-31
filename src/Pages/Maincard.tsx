@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Loading from "../components/loadingComponent/Loading";
 import { Modal } from "../components/modalComponet/Modal";
 import axios from "axios";
+import IMainRequest from "../interfaces/mainInterface";
 
 export default function MainCard() {
   const [pokemons, setPokemons] = useState<any>([]);
@@ -15,6 +16,7 @@ export default function MainCard() {
   const [searchPokemon, setSearchPokemon] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [pokeParam, setPokeParam] = useState<any>([]);
 
   const pagination = (actualpoke: string, pages: number) => {
     const urlNumber = Number(actualpoke.match(/\d+/g).pop());
@@ -45,7 +47,7 @@ export default function MainCard() {
     setLoading(true);
     await axios
       .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=8")
-      .then((res: any) => {
+      .then((res: IMainRequest) => {
         //setLastPoke(res.data.results[0].url);
         setFirstEndPoint(res?.data?.results);
         getEndPoints(res?.data?.results);
@@ -144,14 +146,19 @@ export default function MainCard() {
           ) : (
             <button onClick={() => load()}>X</button>
           )}
-          <MainCardStyled numColumns={pokemons.length == 1 ? 1 : 4}>
+          <MainCardStyled numColumns={pokemons.length === 1 ? 1 : 4}>
             {isOpen === true ? (
-              <Modal onClose={closeModal} />
+              <Modal onClose={closeModal} pokeParams={pokeParam} />
             ) : (
               <>
                 {pokemons?.map((el: any, i: number) => {
                   return (
-                    <button onClick={() => setIsOpen(true)}>
+                    <button
+                      onClick={() => {
+                        setPokeParam(el.data);
+                        setIsOpen(true);
+                      }}
+                    >
                       <PokeCard key={i}>
                         <PokeImg src={el.data.sprites.front_default} />
                         <p>{el.data.name}</p>
