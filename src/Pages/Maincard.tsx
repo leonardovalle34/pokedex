@@ -107,46 +107,46 @@ export default function MainCard() {
 
   return (
     <>
-      {loading === true ? (
-        <Loading />
-      ) : (
+      <div>
+        <label>Search</label>
+        <input
+          type="text"
+          onChange={(e) => setSearchPokemon(e.target.value)}
+        ></input>
+        <button onClick={() => handleSearch()}>🔍</button>
+      </div>
+      {pokemons.length > 2 ? (
         <>
-          <div>
-            <label>Search</label>
-            <input
-              type="text"
-              onChange={(e) => setSearchPokemon(e.target.value)}
-            ></input>
-            <button onClick={() => handleSearch()}>🔍</button>
-          </div>
-          {pokemons.length > 2 ? (
-            <>
-              <button
-                onClick={() => pageDown()}
-                disabled={actualPage <= 1 ? true : false}
-              >
-                Previous
-              </button>
-              <button
-                onClick={() => pageUp()}
-                disabled={actualPage >= 100 ? true : false}
-              >
-                Next
-              </button>
-              <p></p>
-              <p>
-                Pagina{" "}
-                <strong>
-                  {actualPage}
-                  <strong> de </strong>
-                  100
-                </strong>
-              </p>
-            </>
-          ) : (
-            <button onClick={() => load()}>X</button>
-          )}
-          <MainCardStyled numColumns={pokemons.length === 1 ? 1 : 4}>
+          <button
+            onClick={() => pageDown()}
+            disabled={actualPage <= 1 ? true : false}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => pageUp()}
+            disabled={actualPage >= 100 ? true : false}
+          >
+            Next
+          </button>
+          <p></p>
+          <p>
+            Pagina{" "}
+            <strong>
+              {actualPage}
+              <strong> de </strong>
+              100
+            </strong>
+          </p>
+        </>
+      ) : (
+        <button onClick={() => load()}>X</button>
+      )}
+      <MainCardStyled numColumns={pokemons.length === 1 ? 1 : 4}>
+        {loading === true ? (
+          <Loading />
+        ) : (
+          <>
             {isOpen === true ? (
               <Modal onClose={closeModal} pokeParams={pokeParam} />
             ) : (
@@ -168,9 +168,9 @@ export default function MainCard() {
                 })}
               </>
             )}
-          </MainCardStyled>
-        </>
-      )}
+          </>
+        )}
+      </MainCardStyled>
     </>
   );
 }
