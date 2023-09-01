@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CloseButton, ModalContent, ModalOverlay } from "./modalStyled";
 
 export function Modal(props: any) {
@@ -6,7 +7,8 @@ export function Modal(props: any) {
     <ModalOverlay>
       <CloseButton onClick={props.onClose}>X</CloseButton>
       <ModalContent>
-        {pokeInModal.map((el: any, i: any) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        {pokeInModal.map((el: any, i: number) => {
           return (
             <div>
               <img src={el.sprites.other.home.front_default} />
