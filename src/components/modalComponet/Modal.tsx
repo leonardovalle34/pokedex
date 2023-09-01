@@ -22,6 +22,7 @@ interface ModalProps {
 export function Modal({ onClose, pokeParams }: ModalProps) {
   const { name, sprites, species, types } = pokeParams;
   return (
+    //teste
     <ModalOverlay>
       <CloseButton onClick={onClose}>X</CloseButton>
       <ModalContent>
