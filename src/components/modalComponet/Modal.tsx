@@ -27,7 +27,7 @@ export function Modal({ onClose, pokeParams }: ModalProps) {
       <CloseButton onClick={onClose}>X</CloseButton>
       <ModalContent>
         <div>
-          <img src={sprites.front_default} alt={name} />
+          <img src={sprites.other.home.front_default} alt={name} />
           <p>{name}</p>
           <p>{species.name}</p>
           <p>
