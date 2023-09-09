@@ -6,13 +6,10 @@ interface MainCardProps {
 
 export const PokeCard = styled.div<MainCardProps>`
   padding: 10px;
-  width: ${({ width }) => (width || 80) + "%"};
-  margin: 10px;
-  height: 100%;
+
   display: flex;
   justify-content: center;
   background: transparent;
-  border: solid 1px;
   border-radius: 8px;
   box-shaddow: 10px, 10px, 10px, black;
   max-height: 75%;

@@ -28,13 +28,6 @@ export function Modal({ onClose, pokeParams }: ModalProps) {
       <ModalContent>
         <div>
           <img src={sprites.other.home.front_default} alt={name} />
-          <p>{name}</p>
-          <p>{species.name}</p>
-          <p>
-            {types.map((element, i) => {
-              return <p key={i}>{element.type.name}</p>;
-            })}
-          </p>
         </div>
       </ModalContent>
     </ModalOverlay>

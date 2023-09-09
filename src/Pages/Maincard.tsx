@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MainCardStyled } from "../components/mainCardStyled";
+import { MainCardStyled, PokeBtn } from "../components/mainCardStyled";
 import { PokeCard, PokeImg } from "../components/pokeCard";
 import { useEffect, useState } from "react";
 import Loading from "../components/loadingComponent/Loading";
 import { Modal } from "../components/modalComponet/Modal";
 import axios from "axios";
 import IMainRequest from "../interfaces/mainInterface";
+import { Header } from "../components/haederComponent/headerStyled";
 
 export default function MainCard() {
   const [pokemons, setPokemons] = useState<any>([]);
@@ -110,41 +111,44 @@ export default function MainCard() {
 
   return (
     <>
-      <div>
-        <label>Search</label>
-        <input
-          type="text"
-          onChange={(e) => setSearchPokemon(e.target.value)}
-        ></input>
-        <button onClick={() => handleSearch()}>🔍</button>
-      </div>
-      {pokemons.length > 2 ? (
-        <>
-          <button
-            onClick={() => pageDown()}
-            disabled={actualPage <= 1 ? true : false}
-          >
-            Previous
-          </button>
-          <button
-            onClick={() => pageUp()}
-            disabled={actualPage >= 100 ? true : false}
-          >
-            Next
-          </button>
-          <p></p>
-          <p>
-            Pagina{" "}
-            <strong>
-              {actualPage}
-              <strong> de </strong>
-              100
-            </strong>
-          </p>
-        </>
-      ) : (
-        <button onClick={() => load()}>X</button>
-      )}
+      <Header>
+        <div>
+          <label>Search</label>
+          <input
+            type="text"
+            onChange={(e) => setSearchPokemon(e.target.value)}
+          ></input>
+          <button onClick={() => handleSearch()}>🔍</button>
+        </div>
+        {pokemons.length > 2 ? (
+          <>
+            <button
+              onClick={() => pageDown()}
+              disabled={actualPage <= 1 ? true : false}
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => pageUp()}
+              disabled={actualPage >= 100 ? true : false}
+            >
+              Next
+            </button>
+            <p></p>
+            <p>
+              Pagina{" "}
+              <strong>
+                {actualPage}
+                <strong> de </strong>
+                100
+              </strong>
+            </p>
+          </>
+        ) : (
+          <button onClick={() => load()}>X</button>
+        )}
+      </Header>
+
       <MainCardStyled numColumns={pokemons.length === 1 ? 1 : 4}>
         {loading === true ? (
           <Loading />
@@ -156,7 +160,7 @@ export default function MainCard() {
               <>
                 {pokemons?.map((el: any, i: number) => {
                   return (
-                    <button
+                    <PokeBtn
                       onClick={() => {
                         setPokeParam(el.data);
                         setIsOpen(true);
@@ -166,7 +170,7 @@ export default function MainCard() {
                         <PokeImg src={el.data.sprites.front_default} />
                         <p>{el.data.name}</p>
                       </PokeCard>
-                    </button>
+                    </PokeBtn>
                   );
                 })}
               </>

@@ -3,7 +3,6 @@ export default function Loading() {
   return (
     <LoadingContainer>
       <LoadingSpinner></LoadingSpinner>
-      <p>Loading...</p>
     </LoadingContainer>
   );
 }

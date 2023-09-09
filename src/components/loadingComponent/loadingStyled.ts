@@ -1,12 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-export const LoadingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-`;
+export const LoadingContainer = styled.div``;
 
 export const spin = keyframes`
   0% {
@@ -25,4 +19,10 @@ export const LoadingSpinner = styled.div`
   width: 50px;
   height: 50px;
   margin-bottom: 10px;
+
+  /* Centraliza o spinner no meio da tela */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
