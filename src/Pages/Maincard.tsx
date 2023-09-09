@@ -33,10 +33,16 @@ export default function MainCard() {
   };
 
   const getData = async (newEndPoints: string[]) => {
-    axios
-      .all(newEndPoints.map((endPoint: any) => axios.get(endPoint)))
-      .then((res: any) => setPokemons(res));
-    setLoading(false);
+    try {
+      axios
+        .all(newEndPoints.map((endPoint: any) => axios.get(endPoint)))
+        .then((res: any) => setPokemons(res));
+    } catch (err) {
+      console.log(err);
+    }
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
 
   const getEndPoints = async (firstparam: any) => {
@@ -97,7 +103,6 @@ export default function MainCard() {
       .then((res) => {
         const response: IMainRequest = res.data;
         setPokemons([response]);
-        setLoading(false);
       });
   };
 
