@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { CloseButton, ModalContent, ModalOverlay } from "./modalStyled";
+
+import {
+  CloseButton,
+  ModalContent,
+  ModalOverlay,
+  ModalPokeImg,
+} from "./modalStyled";
 
 interface ModalProps {
   onClose: () => void;
@@ -22,13 +28,10 @@ interface ModalProps {
 export function Modal({ onClose, pokeParams }: ModalProps) {
   const { name, sprites, species, types } = pokeParams;
   return (
-    //teste
     <ModalOverlay>
       <CloseButton onClick={onClose}>X</CloseButton>
       <ModalContent>
-        <div>
-          <img src={sprites.other.home.front_default} alt={name} />
-        </div>
+        <ModalPokeImg src={sprites.other.home.front_default} alt={name} />
       </ModalContent>
     </ModalOverlay>
   );

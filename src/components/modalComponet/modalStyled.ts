@@ -13,7 +13,7 @@ export const ModalOverlay = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  background-color: grey;
+  background-color: transparent;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
@@ -36,4 +36,8 @@ export const CloseButton = styled.button`
   &:hover {
     color: #ff0000;
   }
+`;
+
+export const ModalPokeImg = styled.img`
+  width:: 60vw;
 `;
