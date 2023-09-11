@@ -17,7 +17,7 @@ export const PokeCard = styled.div<MainCardProps>`
   align-items: center;
 `;
 export const PokeImg = styled.img`
-  width: 70%;
-  height: 30%;
+  width: auto;
+  height: auto;
   border-radius: 16px;
 `;
