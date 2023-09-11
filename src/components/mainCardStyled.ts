@@ -47,3 +47,7 @@ export const PokeBtn = styled.button`
     font-size: 14px; /* Reduz a fonte em telas menores */
   }
 `;
+
+export const Paragraph = styled.p`
+  font-weight: 900;
+`;
