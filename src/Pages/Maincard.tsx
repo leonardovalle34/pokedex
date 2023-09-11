@@ -1,6 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MainCardStyled, PokeBtn } from "../components/mainCardStyled";
+import {
+  MainCardStyled,
+  PokeBtn,
+  Paragraph,
+} from "../components/mainCardStyled";
 import { PokeCard, PokeImg } from "../components/pokeCard";
 import { useEffect, useState } from "react";
 import Loading from "../components/loadingComponent/Loading";
@@ -98,12 +102,10 @@ export default function MainCard() {
 
   const handleSearch = () => {
     setLoading(true);
-    axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${searchPokemon}`)
-      .then((res) => {
-        const response: IMainRequest = res.data;
-        setPokemons([response]);
-      });
+    const url = [`https://pokeapi.co/api/v2/pokemon/${searchPokemon}`];
+    getData(url);
+
+    setLoading(false);
   };
 
   const closeModal = () => {
@@ -173,7 +175,9 @@ export default function MainCard() {
                     >
                       <PokeCard key={i}>
                         <PokeImg src={el.data.sprites.front_default} />
-                        <p>{el.data.name}</p>
+                        <Paragraph>
+                          <strong>{el.data.name}</strong>
+                        </Paragraph>
                       </PokeCard>
                     </PokeBtn>
                   );
