@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface MainCardProps {
-  numColumns?: number;
+  numColumns?: number | null;
 }
 
 export const MainCardStyled = styled.div<MainCardProps>`

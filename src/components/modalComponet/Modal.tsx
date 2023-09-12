@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import {
@@ -12,6 +13,7 @@ interface ModalProps {
   pokeParams: {
     name: string;
     sprites: {
+      [x: string]: any;
       front_default: string;
     };
     species: {
@@ -26,7 +28,7 @@ interface ModalProps {
 }
 
 export function Modal({ onClose, pokeParams }: ModalProps) {
-  const { name, sprites, species, types } = pokeParams;
+  const { name, sprites } = pokeParams;
   return (
     <ModalOverlay>
       <CloseButton onClick={onClose}>X</CloseButton>
