@@ -12,7 +12,7 @@ export const MainCardStyled = styled.div<MainCardProps>`
   color: white;
   border-radius: 32px;
   padding: 20px;
-  width: 88vw;
+  width: 70vw;
   height: auto;
   gap: 2%;
   align-items: center;
@@ -23,24 +23,24 @@ export const MainCardStyled = styled.div<MainCardProps>`
 `;
 
 export const PokeBtn = styled.button`
-  border: none;
-  border-radius: 36px;
-  padding: 10px 20px;
+
+  border-radius: 12px;
+
   font-size: 16px;
   color: #ffffff;
   background: linear-gradient(
     to right,
     #333333,
     #000000
-  ); /* Gradiente de preto para preto mais escuro */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutíl */
+  ); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 
   &:hover {
     background: linear-gradient(
       to right,
       #555555,
       #222222
-    ); /* Gradiente mais escuro no hover */
+    ); 
   }
 
   @media (max-width: 475px) {
