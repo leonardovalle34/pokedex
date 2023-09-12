@@ -11,7 +11,7 @@ import Loading from "../components/loadingComponent/Loading";
 import { Modal } from "../components/modalComponet/Modal";
 import axios from "axios";
 import IMainRequest from "../interfaces/mainInterface";
-import { Header } from "../components/haederComponent/headerStyled";
+import { Header, Pagination } from "../components/haederComponent/headerStyled";
 
 export default function MainCard() {
   const [pokemons, setPokemons] = useState<any>([]);
@@ -142,14 +142,14 @@ export default function MainCard() {
               Next
             </button>
             <p></p>
-            <p>
+            <Pagination>
               Pagina{" "}
               <strong>
                 {actualPage}
                 <strong> de </strong>
                 100
               </strong>
-            </p>
+            </Pagination>
           </>
         ) : (
           <button onClick={() => load()}>X</button>
