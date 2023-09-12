@@ -40,7 +40,7 @@ export const PokeBtn = styled.button`
       to right,
       #555555,
       #222222
-    ); /* Gradiente mais escuro no hover */
+    ); 
   }
 
   @media (max-width: 475px) {

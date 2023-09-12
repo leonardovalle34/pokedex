@@ -39,5 +39,5 @@ export const CloseButton = styled.button`
 `;
 
 export const ModalPokeImg = styled.img`
-  width:: 60vw;
+  max-width: 95vw;
 `;

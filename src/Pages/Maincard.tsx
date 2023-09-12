@@ -176,7 +176,7 @@ export default function MainCard() {
                       <PokeCard key={i}>
                         <PokeImg src={el.data.sprites.front_default} />
                         <Paragraph>
-                          <strong>{el.data.name}</strong>
+                          <strong>{el.data.name.substring(0,1).toUpperCase()+el.data.name.substring(1,100)}</strong>
                         </Paragraph>
                       </PokeCard>
                     </PokeBtn>
