@@ -12,7 +12,8 @@ export const MainCardStyled = styled.div<MainCardProps>`
   color: white;
   border-radius: 32px;
   padding: 20px;
-  width: 70vw;
+  width: 80vw;
+  max-width: 900px;
   height: auto;
   gap: 2%;
   align-items: center;
