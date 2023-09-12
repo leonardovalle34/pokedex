@@ -102,7 +102,7 @@ export default function MainCard() {
 
   const handleSearch = () => {
     setLoading(true);
-    const url = [`https://pokeapi.co/api/v2/pokemon/${searchPokemon}`];
+    const url = [`https://pokeapi.co/api/v2/pokemon/${searchPokemon.toLowerCase()}`];
     getData(url);
 
     setLoading(false);
