@@ -12,6 +12,7 @@ import { Modal } from "../components/modalComponet/Modal";
 import axios from "axios";
 import IMainRequest from "../interfaces/mainInterface";
 import { Header, Pagination } from "../components/headerComponent/headerStyled";
+import { Link } from "react-router-dom";
 
 export default function MainCard() {
   const [pokemons, setPokemons] = useState<any>([]);
@@ -118,7 +119,11 @@ export default function MainCard() {
 
   return (
     <>
+    
       <Header>
+        <Link to="/game">
+          <button>ir para o game</button>
+        </Link>
         <div>
           <label>Search</label>
           <input
