@@ -13,7 +13,7 @@ export const spin = keyframes`
 
 export const LoadingSpinner = styled.div`
   border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #333;
+  border-left-color: #f00;
   animation: ${spin} 1s linear infinite;
   border-radius: 50%;
   width: 50px;
