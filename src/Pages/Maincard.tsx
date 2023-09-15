@@ -11,7 +11,7 @@ import Loading from "../components/loadingComponent/Loading";
 import { Modal } from "../components/modalComponet/Modal";
 import axios from "axios";
 import IMainRequest from "../interfaces/mainInterface";
-import { Header, Pagination } from "../components/haederComponent/headerStyled";
+import { Header, Pagination } from "../components/headerComponent/headerStyled";
 
 export default function MainCard() {
   const [pokemons, setPokemons] = useState<any>([]);
