@@ -5,12 +5,11 @@ import axios from 'axios';
 import { Splide , SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
 import IMainRequest from '../../interfaces/mainInterface';
+import "./carousel.css"
 
 const MainCarousel: React.FC = () => {
     const [pokemons, setPokemons] = useState<any>([]);
 
-  const [nextEndPoint, setNextEndPoint] = useState<any>([]);
-  const [previousEndPoint, setPreviousEndPoint] = useState<any>("");
   
 
   
@@ -51,31 +50,7 @@ const MainCarousel: React.FC = () => {
       });
   };
 
-  const pageUp = async () => {
-   
-    await axios.get(`${nextEndPoint}`).then((res) => {
-      const response: IMainRequest = res.data;
-
-      //setLastPoke(res?.data?.result[0].url);
-      getEndPoints(response?.results);
-      setNextEndPoint(response.next);
-      setPreviousEndPoint(response.previous);
-     
-    });
-  };
-
-  const pageDown = async () => {
-   
-    await axios.get(`${previousEndPoint}`).then((res) => {
-      const response: IMainRequest = res.data;
-
-      //setLastPoke(res?.data?.result[0].url);
-      getEndPoints(response?.results);
-      setNextEndPoint(response.next);
-      setPreviousEndPoint(response.previous);
-      
-    });
-  };
+  
 
  
 
@@ -86,16 +61,17 @@ const MainCarousel: React.FC = () => {
 
   return (
     <>
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div style={{ width: "100vw", height: "100vh" , display: "flex" , alignContent: "center" , flexDirection: "column",justifyContent: "center"}}>
       <Splide
         aria-label="My Favorite Images"
         options={{
-          type: 'fade', // ou 'slide' se preferir
+          type: 'flip', // ou 'slide' se preferir
           heightRatio: 0.5,
           pagination: false,
           cover: true,
           isLoop: true,
           rewind: true,
+          arrows: false,
           breakpoints: {
             600: {
               heightRatio: 0.8,
