@@ -1,6 +1,6 @@
 import { BrowserRouter as Router , Route , Routes } from "react-router-dom";
 import MainCard from "./Pages/Maincard";
-import MainCarousel from "./components/carrossel/mainCarousel";
+import Carousel from "./Pages/Carousel";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
       <Route path="/" Component={MainCard}/>
-        <Route path="/game" Component={MainCarousel}/>
+        <Route path="/game" Component={Carousel}/>
       </Routes>
     </Router>
     </>
